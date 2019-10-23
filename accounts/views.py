@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
+from .models import User
 from .forms import CustomUserCreationForm
 # Create your views here.
 def signup(request):
@@ -33,3 +34,11 @@ def login(request):
 def logout(request):
     auth_logout(request)
     return redirect("accounts:login")
+
+def user_page(req, id):
+    #user라 이름을 변수로 설정하면 기존의 장고의 기능과 충돌할 가능성이 있음
+    user_info = get_object_or_404(User, id=id)
+    context ={
+        'user_info':user_info
+    }
+    return render(req,'accounts/user_page.html',context)
