@@ -42,3 +42,16 @@ def user_page(req, id):
         'user_info':user_info
     }
     return render(req,'accounts/user_page.html',context)
+
+def follow(req,id):
+    you = get_object_or_404(User, id=id) #내가 팔로우할려고 하는 사람 
+    me =req.user #지금 로그인하는 사람  
+    if you != me : #자기 페이지인지 확인
+        if me in you.followers.all() :
+            me.followings.remove(you)
+            # you.followers.remove(me)
+        else:
+            me.followings.add(you)
+            # you.followers.add(me)
+
+    return redirect('accounts:user_page',id)

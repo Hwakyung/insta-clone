@@ -1,7 +1,10 @@
 {%extends 'base.html'%}
 {% block body %}
 <h1>{{user_info.username}}님의 페이지입니다~</h1>
-{%if user.is_authenticated%}
+<h6>팔로워 : {{user_info.followers.all | length}}</h6>
+<h6>팔로잉 : {{user_info.followings.all | length}}</h6>
+
+{%if user.is_authenticated and user != user_info%}
 <a href="{%url 'accounts:follow' user_info.id%}">following</a>
 {%endif%}
 {% endblock %}
