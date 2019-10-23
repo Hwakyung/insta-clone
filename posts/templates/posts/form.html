@@ -1,0 +1,10 @@
+{%extends 'base.html'%}
+{%load bootstrap4%}
+{%block body%}
+<form action="" method="post" enctype="multipart/form-data">
+    <!-- enctype : 사진을 넣기 위해서 인코딩해야함 -->
+    {%csrf_token%}
+    {%bootstrap_form form%}
+    <input type="submit">
+</form>
+{%endblock%}

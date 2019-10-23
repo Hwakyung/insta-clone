@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'imagekit',
+    'bootstrap4',
     'accounts',
     'posts',
     'django.contrib.admin',
@@ -122,3 +124,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL='accounts.User' # AUTH_USER_MODEL 자기 자신의 호출을 하기 위해서 이름을 바꿔줌
+
+MEDIA_URL = '/media/' #외부에서 사용자가 사진에 접근가능하게 만듬,urls.py와 같은 역할
+MEDIA_ROOT = os.path.join(BASE_DIR) #파일이 저장되있는 주소 저장,내부적으로 직접적으로 찾는 서버의 역할
