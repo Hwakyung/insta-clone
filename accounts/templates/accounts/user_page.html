@@ -1,10 +1,29 @@
 {%extends 'base.html'%}
 {% block body %}
-<h1>{{user_info.username}}님의 페이지입니다~</h1>
-<h6>팔로워 : {{user_info.followers.all | length}}</h6>
-<h6>팔로잉 : {{user_info.followings.all | length}}</h6>
+<h1>{{user_info.username}}님의 페이지</h1>
+<div class="d-flex">
+    <h6 class="mr-4">팔로워 : {{user_info.followers.all | length}}</h6>
+    <h6>팔로잉 : {{user_info.followings.all | length}}</h6>
+</div>
+<div class="d-flex align-items-center ">
+    {%if user.is_authenticated and user != user_info%}
+    {%if user_info in user.followings.all%}
+    <a href="{%url 'accounts:follow' user_info.id%}">unfollowing :(</a>
+    {%else%}
+    <a href="{%url 'accounts:follow' user_info.id%}">following :)</a>
 
-{%if user.is_authenticated and user != user_info%}
-<a href="{%url 'accounts:follow' user_info.id%}">following</a>
-{%endif%}
+    {%endif%}
+
+    {%else%}
+    <form action="{%url 'accounts:delete' user_info.id%}" method="post">
+        {%csrf_token%}
+        <input type="submit" class="btn" value="회원탈퇴">
+    </form>
+    <!-- user도 본인이여야하고 user_info도 같아야함  -->
+
+    <a href="{% url 'accounts:update' %}" class="mr-3 text-dark" class="">정보수정</a>
+    <a href="{% url 'accounts:password' %}" class="text-dark">비밀번호변경</a>
+    {%endif%}
+</div>
+
 {% endblock %}

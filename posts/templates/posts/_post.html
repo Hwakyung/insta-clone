@@ -1,19 +1,34 @@
 {% load make_link %}
+{%load humanize%}
 {%load bootstrap4%}
 <div class="card col-6 my-5">
-    <img src="{{post.image.url}}" class="card-img-top" alt="...">
+    <div style="margin-left:auto;" class="mt-2">
+        <a href="{%url 'posts:delete' post.id%}" class="mt-2"><i class="fas fa-trash-alt text-dark"></i></a>
+        <a href="{%url 'posts:update' post.id%}" class="mt-2"><i class="fas fa-edit text-dark"></i></a>
+    </div>
+
+    <img src="{{post.image.url}}" class="card-img-top my-2" alt="...">
     <div class="card-body">
-        <h5 class="card-title"></h5>
         <div class="d-flex justify-content-between">
-            <p class="card-text">{{post|hashtag_link|safe}}</p>
             {%if request.user in post.like_users.all%}
-            <a href="{%url 'posts:like_post' post.id%}" class="btn btn-primary bg-light btn-outline-light"><i
-                    class="fas fa-heart text-danger "></i><span class="text-dark">
+            <a href="{%url 'posts:like_post' post.id%}" class="btn btn-primary bg-light btn-outline-light "><i
+                    class="fas fa-heart text-danger mb-2 "></i><span class="text-dark">
                     {{post.like_users.all|length}}</span></a>
             {%else%}
-            <a href="{%url 'posts:like_post' post.id%}" class="btn btn-primary text-dark btn-light"><i
-                    class="far fa-heart"></i><span class="text-dark"> {{post.like_users.all|length}}</span></a>
+            <a href="{%url 'posts:like_post' post.id%}" class="btn btn-primary text-dark btn-light "><i
+                    class="far fa-heart mb-2"></i><span class="text-dark"> {{post.like_users.all|length}}</span></a>
             {%endif%}
+        </div>
+        <hr>
+        <div class="d-flex ">
+            <a href="{%url 'accounts:user_page' post.user.id%}">
+                <h6 class="card-title">{{post.user.username}}</h6>
+            </a>
+
+        </div>
+        <p class="card-text" style="min-height: 100px;">{{post|hashtag_link|safe}}</p>
+        <div>
+            <p>{{post.created_at|naturaltime}}</p>
         </div>
         <hr>
         <!-- hashtage_link(post) -->

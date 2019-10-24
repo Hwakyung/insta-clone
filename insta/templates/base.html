@@ -21,6 +21,7 @@
     {% if user.is_authenticated %}
     <div>
       <span><a href="{%url 'accounts:user_page' user.id%}">{{ user.username }}</a></span>
+      <a href="{% url 'posts:create' %}">글쓰기</a>
       <a href="{% url 'accounts:logout' %}">로그아웃</a>
     </div>
     {% else %}
