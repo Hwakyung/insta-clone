@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 # Create your views here.
 def index(req):
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by('-created_at')
 
     paginator = Paginator(posts,5)
     

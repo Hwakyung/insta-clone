@@ -1,7 +1,7 @@
 {% load make_link %}
 {%load humanize%}
 {%load bootstrap4%}
-<div class="card col-6 my-5">
+<div class="card col-6 my-5 mx-auto">
     <div style="margin-left:auto;" class="mt-2">
         <a href="{%url 'posts:delete' post.id%}" class="mt-2"><i class="fas fa-trash-alt text-dark"></i></a>
         <a href="{%url 'posts:update' post.id%}" class="mt-2"><i class="fas fa-edit text-dark"></i></a>
