@@ -129,7 +129,8 @@ def update(req,id):
     if req.user == post.user:
 
         if req.method == "POST":
-            form = PostForm(req.POST, instance=post)
+            
+            form = PostForm(req.POST,req.FILES, instance=post)
             if form.is_valid():
                 p = form.save()
                 p.hashtags.clear()
